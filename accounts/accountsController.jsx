@@ -16,10 +16,12 @@ console.log("controllers");
 // @desc    GET all accounts
 // @route   GET to /api/accounts
 exports.getAll = (req, res, next) => {
-  console.log("getAll");
+  const { limit, sortby, sortdir } = req.query;
+  console.log("getAll", req.query, limit, sortby, sortdir);
   controller("accounts")
+    .limit(limit)
+    .orderBy(sortby, sortdir) //orders the returns in ascending order
     .then(allReturns => {
-      console.log("getAll", allReturns);
       res
         .status(200) //success
         .json(allReturns);
